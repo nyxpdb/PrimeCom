@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrimeCom — Intranet</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #c4a0ae;
+    --rose-light: #f5ecef;
+    --rose-mid: #e8d5dc;
+    --rose-deep: #8d5f70;
+    --stone: #6b6460;
+    --stone-light: #f7f5f3;
+    --stone-mid: #ede9e6;
+    --text-primary: #2c2320;
+    --text-secondary: #6b6460;
+    --text-muted: #a09590;
+    --white: #ffffff;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--stone-light);
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--stone-mid);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+  }
+
+  .nav-logo span {
+    color: var(--rose-deep);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--rose-deep); }
+
+  .nav-date {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #f9f0f3 0%, #f0eaed 40%, #eae4e8 100%);
+    padding: 5rem 2.5rem 4rem;
+    border-bottom: 1px solid var(--rose-mid);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,160,174,0.15) 0%, transparent 70%);
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    background: var(--rose-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rose-deep);
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 440px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--rose-mid);
+    border-radius: 4px;
+    padding: 1.4rem 1.2rem;
+  }
+
+  .stat-card .number {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--rose-deep);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+
+  /* SECTION TITLES */
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--stone-mid);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--stone-mid);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-accent {
+    border-left: 3px solid var(--rose);
+  }
+
+  /* AVISO */
+  .aviso {
+    background: var(--white);
+    border: 1px solid var(--stone-mid);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .aviso-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--rose-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .aviso-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--rose-deep);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .aviso-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    background: var(--rose-light);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  .aviso h3 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+  }
+
+  .aviso p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .aviso-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* DICA DE OURO */
+  .dica {
+    background: linear-gradient(135deg, #2c2320 0%, #3d302c 100%);
+    border-radius: 4px;
+    padding: 1.8rem;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+
+  .dica::before {
+    content: '"';
+    position: absolute;
+    right: 1rem;
+    top: -1rem;
+    font-family: var(--serif);
+    font-size: 8rem;
+    color: rgba(196,160,174,0.12);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .dica .dica-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .dica h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+
+  .dica .author {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .dica p {
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+
+  /* AGENDA */
+  .evento {
+    background: var(--white);
+    border: 1px solid var(--stone-mid);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    transition: border-color 0.2s;
+  }
+
+  .evento:hover { border-color: var(--rose); }
+
+  .evento-date {
+    text-align: center;
+    background: var(--rose-light);
+    border-radius: 3px;
+    padding: 0.4rem;
+  }
+
+  .evento-date .day {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--rose-deep);
+    line-height: 1;
+  }
+
+  .evento-date .month {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    font-weight: 500;
+  }
+
+  .evento h3 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+  }
+
+  .evento p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  /* SIDEBAR */
+  .sidebar > * { margin-bottom: 1.5rem; }
+
+  .sidebar-card {
+    background: var(--white);
+    border: 1px solid var(--stone-mid);
+    border-radius: 4px;
+    padding: 1.4rem;
+  }
+
+  .sidebar-card .section-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  /* CULTURA */
+  .principio {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--stone-mid);
+  }
+
+  .principio:last-child { border-bottom: none; }
+
+  .principio-num {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--rose);
+    min-width: 20px;
+    line-height: 1.3;
+  }
+
+  .principio h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+  }
+
+  .principio p {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* CLIENTE */
+  .cliente-depoimento {
+    background: var(--rose-light);
+    border-left: 3px solid var(--rose);
+    padding: 1.2rem;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 1rem;
+  }
+
+  .cliente-depoimento p {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+  }
+
+  .cliente-depoimento .cliente-nome {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--rose-deep);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-style: normal;
+    font-family: var(--sans);
+  }
+
+  .cliente-beneficio {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--text-primary);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    margin-top: 2rem;
+  }
+
+  footer strong {
+    color: var(--rose);
+    font-weight: 400;
+    font-family: var(--serif);
+    font-size: 0.95rem;
+  }
+
+  /* IDENTITY GUIDE */
+  .guide-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem 3rem;
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .color-swatch {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--stone-mid);
+  }
+
+  .swatch-color {
+    height: 64px;
+  }
+
+  .swatch-info {
+    background: var(--white);
+    padding: 0.7rem;
+  }
+
+  .swatch-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+  }
+
+  .swatch-hex {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: monospace;
+  }
+
+  .font-showcase {
+    background: var(--white);
+    border: 1px solid var(--stone-mid);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .font-example {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--stone-mid);
+  }
+
+  .font-example:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .main { grid-template-columns: 1fr; }
+    .guide-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { padding: 3rem 1.5rem; }
+    .main { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVEGAÇÃO -->
+<nav>
+  <div class="nav-logo">Prime<span>Com</span></div>
+  <ul class="nav-links">
+    <li><a href="#avisos">Avisos</a></li>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#cultura">Cultura</a></li>
+    <li><a href="#clientes">Clientes</a></li>
+    <li><a href="#identidade">Identidade Visual</a></li>
+  </ul>
+  <span class="nav-date">Abril 2026 · Intranet Interna</span>
+</nav>
+
+<!-- HERO / BOAS-VINDAS -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">Portal Interno · Abril 2026</span>
+      <h1>Bem-vindo(a) à nossa <em>história</em>, que também é a sua.</h1>
+      <p>Este é o seu espaço: um lugar de conexão, aprendizado e propósito. Aqui você encontra tudo o que precisa para crescer junto com a PrimeCom — onde cada página lida transforma uma vida, incluindo a nossa.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="number">11</div>
+        <div class="label">Colaboradores</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">R$15M</div>
+        <div class="label">Faturamento anual</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">10%</div>
+        <div class="label">Do lucro em impacto social</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">∞</div>
+        <div class="label">Histórias transformadas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div class="main">
+
+  <!-- COLUNA ESQUERDA -->
+  <div>
+
+    <!-- MURAL DE AVISOS -->
+    <section id="avisos">
+      <p class="section-label">Mural de Avisos</p>
+      <h2 class="section-title">O que está acontecendo</h2>
+
+      <div class="aviso card-accent">
+        <div class="aviso-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <span class="aviso-tag">Treinamento · Obrigatório</span>
+          <h3>Jornada PrimeCom: Cultura, Produto e Propósito</h3>
+          <p>Nosso próximo treinamento interno acontece nos dias <strong>22 e 23 de abril</strong>, das 9h às 17h, no formato híbrido. Vamos mergulhar nos pilares da nossa cultura, nas atualizações da plataforma e nas estratégias de crescimento para o segundo semestre. Prepare-se com leitura prévia do nosso Playbook Interno (disponível na pasta compartilhada).</p>
+          <div class="aviso-date">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            22–23 Abr · Confirmação obrigatória até dia 18
+          </div>
+        </div>
+      </div>
+
+      <div class="aviso">
+        <div class="aviso-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <span class="aviso-tag">Atualização · Produto</span>
+          <h3>Nova versão da plataforma lançada: v3.2</h3>
+          <p>A versão 3.2 do nosso app chegou com melhorias na recomendação de livros por IA e nova interface para leitores iniciantes. Time de produto agradece o feedback de todos na última rodada de testes!</p>
+          <div class="aviso-date">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            10 Abr · Time de Produto
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- DICA DE OURO -->
+    <section style="margin-top: 2.5rem;">
+  <p class="section-label">Dica de Ouro</p>
+  <h2 class="section-title">Leitura & Podcast do mês</h2>
+
+  <div class="dica">
+    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span class="dica-tag" style="margin-bottom: 0;">Livro recomendado</span>
+    </div>
+    <h3>A Riqueza das Nações Criativas</h3>
+    <p class="author">por Richard Florida</p>
+    <p>Florida argumenta que o verdadeiro motor das economias modernas são pessoas criativas — e que empresas e cidades que atraem esses talentos crescem mais. Para nós da PrimeCom, que democratizamos o acesso à cultura, este livro é um espelho: nosso produto não é apenas tecnologia, é o combustível da criatividade. Uma leitura essencial para entender por que o que fazemos importa além do faturamento.</p>
+  </div>
+
+  <div class="card" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;">
+    <div style="background: #1a1a2e; border-radius: 8px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#a78bfa" stroke="none"/></svg>
+    </div>
+    <div>
+      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--rose-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        <span class="aviso-tag" style="margin-bottom: 0;">Podcast recomendado</span>
+      </div>
+      <h3 style="font-family: var(--serif); font-size: 1rem; font-weight: 400; margin-bottom: 0.3rem;">Naruhodo! — Episódio: Por que lemos?</h3>
+      <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65;">O Naruhodo é um dos melhores podcasts brasileiros de ciência aplicada ao cotidiano. O episódio sobre leitura explora por que o hábito literário muda estruturas cerebrais e desenvolve empatia — perfeito para quem quer defender com dados o que a PrimeCom faz no mundo.</p>
+    </div>
+  </div>
+</section>
+
+<p class="section-label" style="margin-top: 2rem;">Estilo de Imagens para o Canva</p>
+<div class="card">
+  <div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.75;">
+    
+    <div style="display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.92 0 1.7-.39 2.3-1.03a1.5 1.5 0 0 0 .2-1.97 1.5 1.5 0 0 1 1.25-2.25H18c2.2 0 4-1.8 4-4 0-4.97-4.48-8.75-10-8.75z"></path></svg>
+      <span><strong style="color:var(--text-primary);">Elementos gráficos:</strong> busque no Canva por "abstract fluid pastel", "soft silk waves", "dreamy gradient shapes". O estilo já presente na apresentação original deve ser mantido.</span>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+      <span><strong style="color:var(--text-primary);">Fotos:</strong> prefira imagens de pessoas lendo em ambientes aconchegantes, bibliotecas com luz natural, cafés minimalistas, ou mãos segurando livros.</span>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+      <span><strong style="color:var(--text-primary);">Formas:</strong> use círculos e linhas finas como elementos decorativos. Evite sombras pesadas e cantos muito arredondados.</span>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.5 1.5"></path><path d="M7.5 24l3-3"></path><path d="M16.5 24l3-3"></path></svg>
+      <span><strong style="color:var(--text-primary);">Consistência:</strong> mantenha sempre os tons rosados como cor principal e o marrom escuro como cor de contraste. Nunca use mais de 3 cores por composição.</span>
+    </div>
+
+  </div>
+</div>
+
+    <!-- AGENDA DE EVENTOS -->
+    <section id="agenda" style="margin-top: 2.5rem;">
+      <p class="section-label">Agenda de Eventos</p>
+      <h2 class="section-title">Abril na PrimeCom</h2>
+
+      <div class="evento">
+        <div class="evento-date">
+          <div class="day">22</div>
+          <div class="month">Abr</div>
+        </div>
+        <div>
+          <h3>Jornada PrimeCom — Dia 1: Cultura & Produto</h3>
+          <p>Treinamento interno · Híbrido · 9h–17h · Sala de Inovação + Google Meet</p>
+        </div>
+      </div>
+
+      <div class="evento">
+        <div class="evento-date">
+          <div class="day">23</div>
+          <div class="month">Abr</div>
+        </div>
+        <div>
+          <h3>Jornada PrimeCom — Dia 2: Estratégia & Futuro</h3>
+          <p>Treinamento interno · Híbrido · 9h–17h · Encerramento com Happy Hour literário</p>
+        </div>
+      </div>
+
+      <div class="evento">
+        <div class="evento-date">
+          <div class="day">29</div>
+          <div class="month">Abr</div>
+        </div>
+        <div>
+          <h3>Clube do Livro Interno — "O Nome do Vento"</h3>
+          <p>Encontro mensal de colaboradores · 12h–13h · Sala de Reunião 2 · Lanche incluso</p>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- SIDEBAR DIREITA -->
+  <div class="sidebar">
+
+    <!-- NOSSA CULTURA -->
+    <div class="sidebar-card" id="cultura">
+      <p class="section-label">Nossa Cultura</p>
+      <h2 class="section-title">Princípios que guiam tudo</h2>
+
+      <div class="principio">
+        <span class="principio-num">1</span>
+        <div>
+          <h4>Bem-Estar em Primeiro Lugar</h4>
+          <p>Pessoas antes de métricas.</p>
+        </div>
+      </div>
+      <div class="principio">
+        <span class="principio-num">2</span>
+        <div>
+          <h4>Qualidade Sem Concessões</h4>
+          <p>Excelência em tudo que entregamos.</p>
+        </div>
+      </div>
+      <div class="principio">
+        <span class="principio-num">3</span>
+        <div>
+          <h4>Relações Justas</h4>
+          <p>Integridade com parceiros e equipe.</p>
+        </div>
+      </div>
+      <div class="principio">
+        <span class="principio-num">4</span>
+        <div>
+          <h4>Vida Pessoal Importa</h4>
+          <p>Equilíbrio como parte da performance.</p>
+        </div>
+      </div>
+      <div class="principio">
+        <span class="principio-num">5</span>
+        <div>
+          <h4>Lucro com Propósito</h4>
+          <p>Crescer sem abrir mão dos valores.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESPAÇO DO CLIENTE -->
+    <div class="sidebar-card" id="clientes">
+      <p class="section-label">Espaço do Cliente</p>
+      <h2 class="section-title">Quem nos lê, cresce</h2>
+
+      <div class="cliente-depoimento">
+        <p>"A PrimeCom mudou minha relação com a leitura. Em 3 meses li mais do que nos últimos 3 anos. É como ter uma biblioteca inteligente no bolso."</p>
+        <span class="cliente-nome">Mariana T. · Assinante há 14 meses</span>
+      </div>
+
+      <p style="font-size: 0.78rem; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem;">O que nossos clientes ganham</p>
+
+      <div class="cliente-beneficio">
+        <div class="dot"></div>
+        Acesso ilimitado a acervo literário diverso
+      </div>
+      <div class="cliente-beneficio">
+        <div class="dot"></div>
+        Recomendações personalizadas por IA
+      </div>
+      <div class="cliente-beneficio">
+        <div class="dot"></div>
+        Comunidade de leitores ativa e acolhedora
+      </div>
+      <div class="cliente-beneficio">
+        <div class="dot"></div>
+        Impacto social: cada assinatura financia inclusão
+      </div>
+    </div>
+
+    <!-- MISSÃO RÁPIDA -->
+    <div class="sidebar-card" style="background: var(--text-primary); color: white; border-color: var(--text-primary);">
+      <p style="font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; font-weight: 500;">Nossa Missão</p>
+      <p style="font-family: var(--serif); font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.9); line-height: 1.65; font-style: italic;">"Incentivar a leitura de forma prática, acessível e envolvente — tornando a PrimeCom referência na democratização do acesso ao conteúdo literário."</p>
+    </div>
+
+  </div>
+</div>
+
+
+
+</body>
+</html>
